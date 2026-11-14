@@ -1,0 +1,9 @@
+# create venv
+python -m venv .venv
+
+# apply
+ .\.venv\Scripts\activate
+
+
+# install dependency
+pip install -r requirements.txt
