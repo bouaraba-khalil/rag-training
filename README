@@ -7,3 +7,8 @@ python -m venv .venv
 
 # install dependency
 pip install -r requirements.txt
+
+
+
+https://docs.cohere.com/reference/chat
+https://developers.openai.com/api/reference/resources/responses/methods/create
