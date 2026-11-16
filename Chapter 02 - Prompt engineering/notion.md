@@ -1,0 +1,5 @@
+- Délimiteurs
+- Classification d'avis clients en zero-shot
+- Classification en few-shot
+- Hallucinations
+- Prompt injection
