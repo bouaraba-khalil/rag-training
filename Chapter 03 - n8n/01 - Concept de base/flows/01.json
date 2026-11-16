@@ -1,0 +1,170 @@
+{
+  "name": "My workflow 9",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f01ab0000-0000-4000-8000-000000000002",
+              "name": "topic",
+              "value": "webhooks",
+              "type": "string"
+            },
+            {
+              "id": "f11ab0000-0000-4000-8000-000000000003",
+              "name": "audience",
+              "value": "a 10-year-old",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "526dc37a-a4d6-4e6e-b6dd-c763afa4c534",
+      "name": "Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-32, -48]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Explain {{ $json.topic }} to {{ $json.audience }} in exactly 3 sentences.",
+        "batching": {}
+      },
+      "id": "6edf3bd8-3561-4896-a47c-c4709c55e341",
+      "name": "Explain it",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [176, -48]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "abd31ca5-3c06-4720-9cf4-7d5a0328081c",
+      "name": "Gemini 2.5 Flash",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [176, 160],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "4cJCCK5E85AiYQIO",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f01ab0000-0000-4000-8000-000000000007",
+              "name": "answer",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "f11ab0000-0000-4000-8000-000000000008",
+              "name": "characters",
+              "value": "={{ $json.text.length }}",
+              "type": "number"
+            },
+            {
+              "id": "f21ab0000-0000-4000-8000-000000000009",
+              "name": "topic",
+              "value": "={{ $('Input').item.json.topic }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d18bdec0-c9b2-4a98-94dd-e7158ac507b9",
+      "name": "Result",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [464, -48]
+    },
+    {
+      "parameters": {
+        "path": "90c0866a-78da-4477-ba42-eab36733a52d",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [-240, -48],
+      "id": "d6ab324d-89ba-41df-9d62-c046d383f25a",
+      "name": "Webhook",
+      "webhookId": "90c0866a-78da-4477-ba42-eab36733a52d"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Input": {
+      "main": [
+        [
+          {
+            "node": "Explain it",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini 2.5 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Explain it",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Explain it": {
+      "main": [
+        [
+          {
+            "node": "Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v0",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false,
+    "redactCallerExecutions": true
+  },
+  "versionId": "f8ef182d-1277-4f9c-a602-b798f11af1bf",
+  "meta": {
+    "instanceId": "4898441f04708ec93e1d48fce89ac3a9ddc68f1a11b1305cc97675f1b14f4f7d"
+  },
+  "nodeGroups": [],
+  "id": "3bT2frEyKSvmLc7l",
+  "tags": []
+}
