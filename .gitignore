@@ -2,3 +2,5 @@
 .venv
 memory.json
 langchain-labs
+chroma_db/
+__pycache__/

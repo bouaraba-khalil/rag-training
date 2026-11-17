@@ -11,3 +11,9 @@ wikipedia==1.4.0
 grandalf
 jupyterlab
 langchain_community
+langchain-chroma
+langchain-text-splitters
+pypdf
+rank-bm25
+numpy
+beautifulsoup4
