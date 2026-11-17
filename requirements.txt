@@ -6,5 +6,8 @@ langchain>=1.0
 langchain-core>=1.0
 langgraph>=1.0
 langchain-google-genai>=3.0
+langchain-community
+wikipedia==1.4.0
 grandalf
 jupyterlab
+langchain_community
